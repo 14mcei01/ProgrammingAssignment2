@@ -9,38 +9,40 @@
 #Note:
 # <<- operator which can be used to assign a value to an object in an environment(local) that is different from the current environment.(global)
 # makeCacheMatrix function
-makeCacheMatrix <- function(x = matrix()) {
-
-		# holds the cached value or NULL if nothing is cached
-        # initially nothing is cached so set it to NULL
-        cache <- NULL
-        
-        # store a matrix
-        setMatrix <- function(newValue) {
-                x <<- newValue
-                # since the matrix is assigned a new value, flush the cache
-                cache <<- NULL
-        }
-
-        # returns the stored matrix
-        getMatrix <- function() {
-                x
-        }
-
-        # cache the given argument 
-        cacheInverse <- function(solve) {
-                cache <<- solve
-        }
-
-        # get the cached value
-        getInverse <- function() {
-                cache
-        }
-        
-        # return a list. Each named element of the list is a function
-        list(setMatrix = setMatrix, getMatrix = getMatrix, cacheInverse = cacheInverse, getInverse = getInverse)
-
+makeCacheMatrix <- function( m = matrix() ) {
+  
+  ## Initialize the inverse property
+  cache <- NULL
+  
+  ## Method to set the matrix
+  setMatrix  <- function( matrix ) {
+    x <<- matrix
+    cache <<- NULL
+  }
+  
+  ## Method the get the matrix
+  getMatrix  <- function() {
+    ## Return the matrix
+    x
+  }
+  
+  ## Method to set the inverse of the matrix
+  cacheInverse   <- function(solve) {
+    cache <<- solve
+  }
+  
+  ## Method to get the inverse of the matrix
+  getInverse <- function() {
+    ## Return the inverse property
+    cache
+  }
+  
+  ## Return a list of the methods
+  list(setMatrix  = setMatrix , getMatrix  = getMatrix ,
+       cacheInverse   = cacheInverse,
+       getInverse = getInverse)
 }
+
 
 
 # The following function calculates the inverse of a "special" matrix created with 
